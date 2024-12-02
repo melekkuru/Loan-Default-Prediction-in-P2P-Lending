@@ -47,8 +47,9 @@ Loan Default Prediction in P2P Lending/
 
 ### **1. Clone the Repository**
 ```bash
-git clone https://github.com/your-username/loan-default-prediction.git
-cd loan-default-prediction
+git clone https://github.com/melekkuru/Loan-Default-Prediction-in-P2P-Lending.git
+cd Loan-Default-Prediction-in-P2P-Lending
+
 ```
 
 ### **2. Set Up the Environment**
