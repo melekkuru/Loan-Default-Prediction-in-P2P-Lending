@@ -1,125 +1,83 @@
-# Loan-Default-Prediction-in-P2P-Lending
+# Loan Default Prediction in P2P Lending
 
+Predicting loan defaults on a peer-to-peer lending platform using multiple machine learning models. The project compares Linear Regression, Ridge, Lasso, Random Forest, and Neural Network approaches to identify the most effective method for credit risk assessment.
 
-This project aims to predict loan default probabilities in peer-to-peer (P2P) lending using various machine learning models. By analyzing loan data, the project provides insights into the factors contributing to loan defaults, which can help stakeholders make better financial decisions.
-
----
-
-## **Project Overview**
-
-Peer-to-peer lending platforms enable individuals to lend and borrow money without traditional financial intermediaries. However, one key challenge is the risk of loan defaults. This project employs multiple machine learning algorithms to analyze and predict loan default risks.
-
-### **Key Features**
-- Data preprocessing: Cleaning and encoding of loan datasets.
-- Model training and evaluation:
-  - **Linear Regression**
-  - **Ridge Regression**
-  - **Lasso Regression**
-  - **Random Forest**
-  - **Neural Network**
-- Model comparison based on performance metrics.
-- Scalable and modular project structure.
+>  Developed as part of the **Big Data for Computational Finance (CF969)** module at the University of Essex.
 
 ---
 
-## **Project Structure**
+## Overview
 
-```plaintext
-Loan Default Prediction in P2P Lending/
-├── src/                      # Source folder
-│   ├── preprocess.py         # Preprocessing functions
-│   ├── models/               # Machine learning models
-│   │   ├── linear_model.py
-│   │   ├── ridge_model.py
-│   │   ├── lasso_model.py
-│   │   ├── random_forest.py
-│   │   ├── neural_network.py
-│   └── utils.py              # Utility functions
-├── main.py                   # Main script to run the project
-├── requirements.txt          # Python dependencies
-├── notebook.ipynb            # Jupyter Notebook for exploratory analysis and experimentation
-├── README.md                 # Project documentation
+P2P lending platforms connect borrowers and lenders directly, but loan defaults pose significant financial risk. This project builds and evaluates five predictive models to classify whether a borrower is likely to default, using real-world-style loan data with features such as income, loan grade, interest rate, and payment history.
+
+**Pipeline:**
+1. Data preprocessing — handling missing values, feature engineering, normalization
+2. Model training — five models with hyperparameter tuning
+3. Evaluation — MSE comparison, feature importance analysis, model selection
+
+---
+
+## Models & Results
+
+| Model | Train MSE | Test MSE | Notes |
+|-------|-----------|----------|-------|
+| Linear Regression | 0.0669 | 3820.7 | Severe overfitting due to multicollinearity |
+| Ridge Regression (λ=0.01) | 0.0668 | 0.0678 | Regularization resolves overfitting |
+| Lasso Regression (λ=0.01) | 0.0962 | 0.0967 | Sparse model; selects `grade` and `total_rec_prncp` |
+| **Random Forest (100 trees)** | **0.0028** | **0.0223** | **Best overall — high accuracy + interpretability** |
+| Neural Network (MLP) | 96.64% acc | 95.93% acc | Highest accuracy but lower interpretability |
+
+**Best model:** Random Forest — chosen for its balance of accuracy, generalization, and interpretability. Key features: `recoveries`, `int_rate`, `installment`.
+
+---
+
+## Project structure
+
+```
+Loan-Default-Prediction-in-P2P-Lending/
+├── src/
+│   ├── preprocess.py         # Data cleaning & feature engineering
+│   └── models/
+│       ├── linear_model.py
+│       ├── ridge_model.py
+│       ├── lasso_model.py
+│       ├── random_forest.py
+│       └── neural_network.py
+├── notebook/
+│   └── loan_default_prediction.ipynb
+├── main.py                   # Run all models
+├── requirements.txt
+└── README.md
 ```
 
 ---
 
-## **How to Run**
+## Getting started
 
-### **1. Clone the Repository**
 ```bash
 git clone https://github.com/melekkuru/Loan-Default-Prediction-in-P2P-Lending.git
 cd Loan-Default-Prediction-in-P2P-Lending
 
-```
-
-### **2. Set Up the Environment**
-Create and activate a virtual environment:
-```bash
 python -m venv venv
-# For Windows:
-venv\Scripts\activate
-# For macOS/Linux:
-source venv/bin/activate
-```
+source venv/bin/activate  # macOS/Linux
 
-Install the required dependencies:
-```bash
 pip install -r requirements.txt
 ```
 
-### **3. Update Dataset Paths**
-Replace the dataset paths in `main.py` with the full paths to your local datasets:
-```python
-train_data = preprocess_data("<full-path-to-trainData.csv>")
-test_data = preprocess_data("<full-path-to-testData.csv>")
-```
+**Note:** The dataset is not included due to privacy constraints. Place your `trainData.csv` and `testData.csv` files in the project root and update paths in `main.py`.
 
-### **4. Run the Project**
 ```bash
 python main.py
 ```
 
-The outputs (model coefficients, metrics, etc.) will be displayed in the console.
+---
+
+## Technologies
+
+Python · scikit-learn · TensorFlow/Keras · pandas · NumPy · Matplotlib · Seaborn
 
 ---
 
-## **Results**
+## License
 
-The project compares the performance of different machine learning models, including:
-- Mean Squared Error (MSE) for both training and test datasets.
-- Feature importance and coefficient analysis.
-- Predictive performance of the neural network.
-
----
-
-## **Requirements**
-
-Ensure the following dependencies are installed (available in `requirements.txt`):
-- Python 3.x
-- pandas
-- numpy
-- scikit-learn
-- matplotlib
-- seaborn
-- tensorflow
-
-To install all dependencies:
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## **Data Privacy**
-
-Due to privacy concerns, the datasets used in this project are not included in the repository. Replace the dataset paths with your own files as described in the **How to Run** section.
-
----
-
-
-## **Acknowledgments**
-
-- This project was developed as part of a data science coursework.
-
-
-
+This project is for educational purposes. Feel free to use it as a reference.
